@@ -76,8 +76,8 @@ def vs_judgement(hand_array)
   if numbers.group_by(&:itself).transform_values(&:size).value?(4)  #4カード  3
     judge_num = 3
 
-#   # elsif numbers.uniq.size   #フルハウス 4
-#   #   judge_num = 4
+  elsif numbers.group_by(&:itself).transform_values(&:size).value?(3) && numbers.group_by(&:itself).transform_values(&:size).value?(2)    #フルハウス 4
+    judge_num = 4
 
   elsif suits.group_by(&:itself).transform_values(&:size).count == 1  #フラッシュ 5
     judge_num = 5
