@@ -21,6 +21,8 @@ def first_message
     8.2ペア
     9.1ペア
 
+    同じ役だった場合は引き分けです
+
     A->1, X->10, J->11, Q-> 12, K->13
   ----------------------------------\n\n
   TEXT
@@ -67,13 +69,14 @@ def vs_judgement(hand_array)
     suits.push c[1]
   end
 
-#   if  suits.group_by(&:itself).transform_values(&:size).count == 1 &&  #ロイヤルフラッシュ 1
-#     judge_num = 1
+    #ロイヤルフラッシュ 1
+  if  suits.group_by(&:itself).transform_values(&:size).count == 1 && numbers.include?("A", "J", "Q", "K") 
+    judge_num = 1
 
   # elsif suits.group_by(&:itself).transform_values(&:size).count == 1 &&  #ストレートフラッシュ 2
 #   #   judge_num = 2
 
-  if numbers.group_by(&:itself).transform_values(&:size).value?(4)  #4カード  3
+  elsif numbers.group_by(&:itself).transform_values(&:size).value?(4)  #4カード  3
     judge_num = 3
 
   elsif numbers.group_by(&:itself).transform_values(&:size).value?(3) && numbers.group_by(&:itself).transform_values(&:size).value?(2)    #フルハウス 4
@@ -88,7 +91,7 @@ def vs_judgement(hand_array)
   elsif numbers.group_by(&:itself).transform_values(&:size).value?(3)   #3カード 7
     judge_num = 7
 
-  elsif numbers.group_by(&:itself).transform_values(&:size).count == 3 && numbers.group_by(&:itself).transform_values(&:size).value?(3)  #2ペア 8
+  elsif numbers.group_by(&:itself).transform_values(&:size).count == 3 && numbers.group_by(&:itself).transform_values(&:size).value?(2)  #2ペア 8
     judge_num = 8
 
   elsif numbers.group_by(&:itself).transform_values(&:size).count == 4  #1ペア 9
@@ -129,18 +132,36 @@ def game_selection(name, cp_hand_array, you_hand_array, cp_judge_num, you_judge_
   end
   
   puts "\n#{judgement}\n\n"  # 7.勝敗表示
+
 end
+  
+  def replay
+
+  print "もう一度対戦しますか？対戦するなら1を止めるなら3を入力してください\n入力受付中=>"
+  replay_num = gets.chomp.to_i
+    
+  unless replay_num == 1 || replay_num == 3
+    puts "無効な値です"
+    return replay
+  end
+  replay_num
+end
+
 
 
 #出力開始
 # first_message  #start
+while true
+  cp_hands, you_hands = input_hand  #手札配布
+  
+  cp_judge = vs_judgement(cp_hands)
+  you_judge = vs_judgement(you_hands)
+    
+  game_selection("あなた", cp_hands, you_hands,cp_judge, you_judge)  #ゲーム開始
 
-cp_hands, you_hands = input_hand  #手札配布
+  if replay == 3
+    puts "----------ゲーム終了-------------\n\n"
+    break
+  end
 
-cp_judge = vs_judgement(cp_hands)
-you_judge = vs_judgement(you_hands)
-
-# p "#{vs_judgement(cp_hands)} CP"
-# p "#{vs_judgement(you_hands)} you"
-
-game_selection("あなた", cp_hands, you_hands,cp_judge, you_judge)  #ゲーム開始
+end
