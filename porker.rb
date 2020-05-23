@@ -12,18 +12,16 @@ def first_message
   ・降りた場合あなたの負けです
   ・役の強さは以下のとおりです
     1.ロイヤルフラッシュ
-    2.ストレートフラッシュ
-    3.4カード
-    4.フルハウス
-    5.フラッシュ
-    6.ストレート
-    7.3カード
-    8.2ペア
-    9.1ペア
+    2.4カード
+    3.フルハウス
+    4.フラッシュ
+    5.3カード
+    6.2ペア
+    7.1ペア
 
     同じ役だった場合は引き分けです
 
-    A->1, X->10, J->11, Q-> 12, K->13
+    A=>1, X=>10, J=>11, Q=> 12, K=>13
   ----------------------------------\n\n
   TEXT
   
@@ -56,7 +54,7 @@ def number_select
     return number_select
   end
 
-  return num_select
+  num_select
 end
 
 # 6.役判定 役に番号つけて番号で勝敗きめる
@@ -73,35 +71,29 @@ def vs_judgement(hand_array)
   if  suits.group_by(&:itself).transform_values(&:size).count == 1 && numbers.include?("A", "J", "Q", "K") 
     judge_num = 1
 
-  # elsif suits.group_by(&:itself).transform_values(&:size).count == 1 &&  #ストレートフラッシュ 2
-#   #   judge_num = 2
-
-  elsif numbers.group_by(&:itself).transform_values(&:size).value?(4)  #4カード  3
-    judge_num = 3
+  elsif numbers.group_by(&:itself).transform_values(&:size).value?(4)  #4カード  2
+    judge_num = 2
 
   elsif numbers.group_by(&:itself).transform_values(&:size).value?(3) && numbers.group_by(&:itself).transform_values(&:size).value?(2)    #フルハウス 4
+    judge_num = 3
+
+  elsif suits.group_by(&:itself).transform_values(&:size).count == 1  #フラッシュ 4
     judge_num = 4
 
-  elsif suits.group_by(&:itself).transform_values(&:size).count == 1  #フラッシュ 5
+  elsif numbers.group_by(&:itself).transform_values(&:size).value?(3)   #3カード 5
     judge_num = 5
 
-#   elsif numbers.uniq.size = 2  #ストレート6
-#     judge_num = 6
+  elsif numbers.group_by(&:itself).transform_values(&:size).count == 3 && numbers.group_by(&:itself).transform_values(&:size).value?(2)  #2ペア 6
+    judge_num = 6
 
-  elsif numbers.group_by(&:itself).transform_values(&:size).value?(3)   #3カード 7
+  elsif numbers.group_by(&:itself).transform_values(&:size).count == 4  #1ペア 7
     judge_num = 7
 
-  elsif numbers.group_by(&:itself).transform_values(&:size).count == 3 && numbers.group_by(&:itself).transform_values(&:size).value?(2)  #2ペア 8
-    judge_num = 8
-
-  elsif numbers.group_by(&:itself).transform_values(&:size).count == 4  #1ペア 9
-    judge_num = 9
-
   else  #何も揃っていない
-    judge_num = 10
+    judge_num = 8
   end
 
-  return judge_num
+  judge_num
 end
   
   
@@ -115,6 +107,7 @@ def game_selection(name, cp_hand_array, you_hand_array, cp_judge_num, you_judge_
   if game_select == 3  # 4.降りたら負け
     puts "CPの手札は#{cp_hand_array}でした"
     judgement = "You lose..."
+    puts "結果は..."
   elsif game_select == 1  # 5.勝負を選択
     puts "CPの手札は#{cp_hand_array}です"
     puts "あなたの手札は#{you_hand_array}です"
@@ -129,6 +122,8 @@ def game_selection(name, cp_hand_array, you_hand_array, cp_judge_num, you_judge_
       judgement = "You Win!!"
 
     end
+    puts "結果は..."
+    sleep(1)
   end
   
   puts "\n#{judgement}\n\n"  # 7.勝敗表示
@@ -150,7 +145,7 @@ end
 
 
 #出力開始
-# first_message  #start
+first_message  #start
 while true
   cp_hands, you_hands = input_hand  #手札配布
   
