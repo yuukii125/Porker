@@ -68,7 +68,7 @@ def vs_judgement(hand_array)
   end
 
     #ロイヤルフラッシュ 1
-  if  suits.group_by(&:itself).transform_values(&:size).count == 1 && numbers.include?("A", "J", "Q", "K") 
+  if  suits.group_by(&:itself).transform_values(&:size).count == 1 && numbers.include?("A", "X", "J", "Q", "K") 
     judge_num = 1
 
   elsif numbers.group_by(&:itself).transform_values(&:size).value?(4)  #4カード  2
