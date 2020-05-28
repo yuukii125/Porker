@@ -127,14 +127,12 @@ def game_selection(name, cp_hand_array, you_hand_array, cp_judge_num, you_judge_
   end
   
   puts "\n#{judgement}\n\n"  # 7.勝敗表示
-
 end
   
-  def replay
-
+def replay
   print "もう一度対戦しますか？対戦するなら1を止めるなら3を入力してください\n入力受付中=>"
   replay_num = gets.chomp.to_i
-    
+  
   unless replay_num == 1 || replay_num == 3
     puts "無効な値です"
     return replay
