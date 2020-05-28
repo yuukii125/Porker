@@ -1,4 +1,4 @@
-#RubyでPorker
+# RubyでPorker
 
 Number_game同様、基礎を用いて制作しました
 
