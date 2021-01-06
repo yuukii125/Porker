@@ -1,10 +1,10 @@
 # ゲームの始め方
-1.git clone https://github.com/yuukii125/Porker.git
-2.cd PORKER/
-3.ruby porker.rb
-4.自分の手札を見て、勝負するなら1を、降りるなら3を入力してください
-5.勝敗が決まります
-6.もう一度対戦するなら1を、やめるなら3をにゅうりょくしてください
+1. git clone https://github.com/yuukii125/Porker.git<br>
+2. cd PORKER/<br>
+3. ruby porker.rb<br>
+4. 自分の手札を見て、勝負するなら1を、降りるなら3を入力してください<br>
+5. 勝敗が決まります<br>
+6. もう一度対戦するなら1を、やめるなら3をにゅうりょくしてください<br>
 
 ## ゲーム内容
 * CPとあなたに手札が5枚ずつ配られます
